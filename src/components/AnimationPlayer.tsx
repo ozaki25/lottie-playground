@@ -11,6 +11,8 @@ type Props = {
   onPlaybackEnd: () => void;
 };
 
+const canvasSize = { width: 200, height: 200 };
+
 export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackEnd }: Props) {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const didFinishRef = useRef(false);
@@ -45,7 +47,7 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackE
         loop={loop}
         autoplay={false}
         onComplete={handleComplete}
-        style={{ width: 200, height: 200 }}
+        style={canvasSize}
       />
     </div>
   );
