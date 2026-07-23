@@ -8,10 +8,12 @@ type Props = {
   loop: boolean;
   speed: number;
   isPlaying: boolean;
+  onPlaybackEnd: () => void;
 };
 
-export function AnimationPlayer({ animation, loop, speed, isPlaying }: Props) {
+export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackEnd }: Props) {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
+  const didFinishRef = useRef(false);
 
   useEffect(() => {
     lottieRef.current?.setSpeed(speed);
@@ -19,7 +21,12 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying }: Props) {
 
   useEffect(() => {
     if (isPlaying) {
-      lottieRef.current?.play();
+      if (didFinishRef.current) {
+        didFinishRef.current = false;
+        lottieRef.current?.goToAndPlay(0, true);
+      } else {
+        lottieRef.current?.play();
+      }
     } else {
       lottieRef.current?.pause();
     }
@@ -32,6 +39,10 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying }: Props) {
         animationData={animation.data}
         loop={loop}
         autoplay={false}
+        onComplete={() => {
+          didFinishRef.current = true;
+          onPlaybackEnd();
+        }}
         style={{ width: 200, height: 200 }}
       />
     </div>

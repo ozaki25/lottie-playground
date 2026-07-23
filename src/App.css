@@ -66,7 +66,7 @@ button {
 }
 
 .app {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -144,6 +144,7 @@ button:focus-visible {
 .rail {
   width: 220px;
   flex: none;
+  min-height: 0;
   background: var(--surface-sunken);
   border-right: 1px solid var(--border);
   display: flex;
@@ -157,6 +158,8 @@ button:focus-visible {
   flex-direction: column;
   padding: 6px;
   gap: 2px;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .rail-item {
@@ -233,7 +236,6 @@ button:focus-visible {
 
 .rail-add {
   margin: 6px;
-  margin-top: auto;
   padding: 9px 8px;
   border: 1px dashed var(--border);
   border-radius: 2px;
@@ -260,6 +262,7 @@ button:focus-visible {
 .pane {
   flex: 1;
   min-width: 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
 }
@@ -280,6 +283,14 @@ button:focus-visible {
 
 .pane-empty {
   border-left: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.reselect-message {
+  margin: 0;
+  color: var(--ink-muted);
+  font-size: 13px;
 }
 
 /* ---- canvas / player ---- */
@@ -445,6 +456,7 @@ button:focus-visible {
 .uploader-empty {
   flex: 1;
   display: flex;
+  flex-direction: column;
 }
 
 .uploader-empty .uploader-message {
@@ -492,13 +504,51 @@ button:focus-visible {
 }
 
 .uploader-error {
-  margin: 0 20px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
   font-size: 12.5px;
-  color: var(--accent);
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 3px;
+  padding: 8px 10px;
+}
+
+.uploader-error::before {
+  content: "!";
+  flex: none;
+  width: 14px;
+  height: 14px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--surface);
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  text-align: center;
+}
+
+.uploader-empty .uploader-error {
+  margin: 0 20px 20px;
 }
 
 .uploader-compact {
-  display: contents;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: auto;
+}
+
+.uploader-compact .uploader-error {
+  margin: 0 6px 6px;
+}
+
+.uploader-compact[data-drag-over] .rail-add {
+  border-color: var(--accent);
+  color: var(--ink);
 }
 
 /* ---- narrow layout ---- */

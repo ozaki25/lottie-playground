@@ -4,6 +4,7 @@ import { Highlight, type PrismTheme } from "prism-react-renderer";
 type Props = {
   loop: boolean;
   speed: number;
+  isPlaying: boolean;
 };
 
 const noInlineStyleTheme: PrismTheme = {
@@ -11,7 +12,7 @@ const noInlineStyleTheme: PrismTheme = {
   styles: [],
 };
 
-function CodePreviewImpl({ loop, speed }: Props) {
+function CodePreviewImpl({ loop, speed, isPlaying }: Props) {
   const code = useMemo(
     () => `<Lottie
   lottieRef={lottieRef}
@@ -20,8 +21,9 @@ function CodePreviewImpl({ loop, speed }: Props) {
   autoplay={false}
 />
 
-lottieRef.current.setSpeed(${speed.toFixed(1)})`,
-    [loop, speed],
+lottieRef.current.setSpeed(${speed.toFixed(1)})
+lottieRef.current.${isPlaying ? "play()" : "pause()"}`,
+    [loop, speed, isPlaying],
   );
 
   return (

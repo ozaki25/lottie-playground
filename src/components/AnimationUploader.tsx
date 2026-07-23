@@ -7,6 +7,14 @@ type Props = {
   onAdd: (animation: LottieAnimation) => void;
 };
 
+function looksLikeLottie(data: unknown): data is object {
+  return (
+    typeof data === "object" &&
+    data !== null &&
+    Array.isArray((data as { layers?: unknown }).layers)
+  );
+}
+
 function readAsAnimation(file: File): Promise<LottieAnimation> {
   if (!file.name.toLowerCase().endsWith(".json")) {
     return Promise.reject(new Error(`${file.name} は .json ファイルではありません`));
@@ -14,12 +22,18 @@ function readAsAnimation(file: File): Promise<LottieAnimation> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
+      let data: unknown;
       try {
-        const data = JSON.parse(reader.result as string);
-        resolve({ id: crypto.randomUUID(), name: file.name, data });
+        data = JSON.parse(reader.result as string);
       } catch {
         reject(new Error(`${file.name} を読み込めませんでした（JSONとして解釈できません）`));
+        return;
       }
+      if (!looksLikeLottie(data)) {
+        reject(new Error(`${file.name} は Lottie のアニメーションデータではありません`));
+        return;
+      }
+      resolve({ id: crypto.randomUUID(), name: file.name, data });
     };
     reader.onerror = () => reject(new Error(`${file.name} の読み込みに失敗しました`));
     reader.readAsText(file);

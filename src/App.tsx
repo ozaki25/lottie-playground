@@ -3,6 +3,7 @@ import { AnimationUploader } from "./components/AnimationUploader";
 import { AnimationList } from "./components/AnimationList";
 import { AnimationPlayer } from "./components/AnimationPlayer";
 import { PlayerControls } from "./components/PlayerControls";
+import { PlayerErrorBoundary } from "./components/PlayerErrorBoundary";
 import { CodePreview } from "./components/CodePreview";
 import { ThemeSwitch } from "./components/ThemeSwitch";
 import type { LottieAnimation, Theme } from "./types";
@@ -57,7 +58,7 @@ function App() {
         </div>
         <div className="app-bar-right">
           <div className="hint">
-            {selectedAnimation ? `${selectedAnimation.name} を再生中` : ".json をドロップ、または選択"}
+            {selectedAnimation ? `${selectedAnimation.name} を選択中` : ".json をドロップ、または選択"}
           </div>
           <ThemeSwitch theme={theme} onChange={setTheme} />
         </div>
@@ -79,13 +80,18 @@ function App() {
             <>
               <section className="pane">
                 <div className="pane-head">再生</div>
-                <AnimationPlayer
+                <PlayerErrorBoundary
                   key={selectedAnimation.id}
-                  animation={selectedAnimation}
-                  loop={loop}
-                  speed={speed}
-                  isPlaying={isPlaying}
-                />
+                  onError={() => setIsPlaying(false)}
+                >
+                  <AnimationPlayer
+                    animation={selectedAnimation}
+                    loop={loop}
+                    speed={speed}
+                    isPlaying={isPlaying}
+                    onPlaybackEnd={() => setIsPlaying(false)}
+                  />
+                </PlayerErrorBoundary>
                 <PlayerControls
                   isPlaying={isPlaying}
                   onTogglePlay={handleTogglePlay}
@@ -97,9 +103,13 @@ function App() {
               </section>
               <section className="pane">
                 <div className="pane-head">ソース</div>
-                <CodePreview loop={loop} speed={speed} />
+                <CodePreview loop={loop} speed={speed} isPlaying={isPlaying} />
               </section>
             </>
+          ) : animations.length > 0 ? (
+            <section className="pane pane-empty">
+              <p className="reselect-message">一覧からアニメーションを選んでください</p>
+            </section>
           ) : (
             <section className="pane pane-empty">
               <AnimationUploader variant="empty" onAdd={handleAdd} />
