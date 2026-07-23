@@ -7,13 +7,14 @@ type Props = {
   animation: LottieAnimation;
   loop: boolean;
   speed: number;
+  zoom: number;
   isPlaying: boolean;
   onPlaybackEnd: () => void;
 };
 
-const canvasSize = { width: 200, height: 200 };
+const baseSize = 200;
 
-export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackEnd }: Props) {
+export function AnimationPlayer({ animation, loop, speed, zoom, isPlaying, onPlaybackEnd }: Props) {
   const lottieRef = useRef<LottieRefCurrentProps | null>(null);
   const didFinishRef = useRef(false);
 
@@ -43,6 +44,8 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackE
     onPlaybackEnd();
   }
 
+  const size = baseSize * zoom;
+
   return (
     <div className="canvas">
       <Lottie
@@ -51,7 +54,10 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackE
         loop
         autoplay={false}
         onComplete={handleComplete}
-        style={canvasSize}
+        // style is applied straight to a plain div inside lottie-react, not read by any
+        // effect dependency there, so a fresh object each render costs nothing here
+        // oxlint-disable-next-line react-perf/jsx-no-new-object-as-prop
+        style={{ width: size, height: size }}
       />
     </div>
   );

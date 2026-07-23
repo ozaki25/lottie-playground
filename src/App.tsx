@@ -18,6 +18,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [loop, setLoop] = useState(true);
   const [speed, setSpeed] = useState(1);
+  const [zoom, setZoom] = useState(1);
   const [theme, setTheme] = useState<Theme>(initialTheme);
 
   useLayoutEffect(() => {
@@ -88,6 +89,7 @@ function App() {
                   animation={selectedAnimation}
                   loop={loop}
                   speed={speed}
+                  zoom={zoom}
                   isPlaying={isPlaying}
                   onPlaybackEnd={handlePlaybackEnd}
                 />
@@ -99,6 +101,8 @@ function App() {
                 onToggleLoop={() => setLoop((prev) => !prev)}
                 speed={speed}
                 onSpeedChange={setSpeed}
+                zoom={zoom}
+                onZoomChange={setZoom}
               />
             </section>
           ) : animations.length > 0 ? (

@@ -288,12 +288,14 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: auto;
 }
 
 .controls {
   display: flex;
   align-items: center;
-  gap: 18px;
+  flex-wrap: wrap;
+  gap: 10px 18px;
   padding: 10px 16px;
   border-top: 1px solid var(--border);
   font-size: 12.5px;
@@ -385,31 +387,31 @@ button:focus-visible {
   transform: rotate(40deg);
 }
 
-.speed {
+.control-slider {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex: 1;
+  flex: 1 1 140px;
   min-width: 0;
 }
 
-.speed label {
+.control-slider label {
   color: var(--ink-muted);
   flex: none;
 }
 
-.speed input[type="range"] {
+.control-slider input[type="range"] {
   flex: 1;
   min-width: 40px;
   accent-color: var(--accent);
 }
 
-.speed .value {
+.control-slider .value {
   font-family: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
   font-variant-numeric: tabular-nums;
   color: var(--ink);
   flex: none;
-  width: 3ch;
+  width: 4ch;
 }
 
 /* ---- uploader ---- */
