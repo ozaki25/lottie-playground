@@ -50,6 +50,10 @@ function App() {
     setIsPlaying((prev) => !prev);
   }
 
+  function handlePlaybackEnd() {
+    setIsPlaying(false);
+  }
+
   return (
     <div className="app">
       <header className="app-bar">
@@ -89,7 +93,7 @@ function App() {
                     loop={loop}
                     speed={speed}
                     isPlaying={isPlaying}
-                    onPlaybackEnd={() => setIsPlaying(false)}
+                    onPlaybackEnd={handlePlaybackEnd}
                   />
                 </PlayerErrorBoundary>
                 <PlayerControls

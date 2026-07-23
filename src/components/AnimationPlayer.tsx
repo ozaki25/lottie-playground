@@ -32,6 +32,11 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackE
     }
   }, [isPlaying]);
 
+  function handleComplete() {
+    didFinishRef.current = true;
+    onPlaybackEnd();
+  }
+
   return (
     <div className="canvas">
       <Lottie
@@ -39,10 +44,7 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackE
         animationData={animation.data}
         loop={loop}
         autoplay={false}
-        onComplete={() => {
-          didFinishRef.current = true;
-          onPlaybackEnd();
-        }}
+        onComplete={handleComplete}
         style={{ width: 200, height: 200 }}
       />
     </div>

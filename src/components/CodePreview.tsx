@@ -1,4 +1,3 @@
-import { memo, useMemo } from "react";
 import { Highlight, type PrismTheme } from "prism-react-renderer";
 
 type Props = {
@@ -12,9 +11,8 @@ const noInlineStyleTheme: PrismTheme = {
   styles: [],
 };
 
-function CodePreviewImpl({ loop, speed, isPlaying }: Props) {
-  const code = useMemo(
-    () => `<Lottie
+export function CodePreview({ loop, speed, isPlaying }: Props) {
+  const code = `<Lottie
   lottieRef={lottieRef}
   animationData={animationData}
   loop={${loop}}
@@ -22,9 +20,7 @@ function CodePreviewImpl({ loop, speed, isPlaying }: Props) {
 />
 
 lottieRef.current.setSpeed(${speed.toFixed(1)})
-lottieRef.current.${isPlaying ? "play()" : "pause()"}`,
-    [loop, speed, isPlaying],
-  );
+lottieRef.current.${isPlaying ? "play()" : "pause()"}`;
 
   return (
     <Highlight code={code} language="jsx" theme={noInlineStyleTheme}>
@@ -42,5 +38,3 @@ lottieRef.current.${isPlaying ? "play()" : "pause()"}`,
     </Highlight>
   );
 }
-
-export const CodePreview = memo(CodePreviewImpl);
