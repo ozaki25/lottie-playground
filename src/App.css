@@ -346,10 +346,27 @@ button:focus-visible {
 }
 
 .play-btn .icon-pause {
+  position: relative;
+  width: 9px;
+  height: 10px;
+}
+
+.play-btn .icon-pause::before,
+.play-btn .icon-pause::after {
+  content: "";
+  position: absolute;
+  top: 0;
   width: 3px;
   height: 10px;
   background: var(--ink);
-  box-shadow: 6px 0 0 var(--ink);
+}
+
+.play-btn .icon-pause::before {
+  left: 0;
+}
+
+.play-btn .icon-pause::after {
+  left: 6px;
 }
 
 .loop-toggle {
