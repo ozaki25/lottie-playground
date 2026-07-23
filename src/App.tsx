@@ -1,14 +1,11 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import type { LottieRefCurrentProps } from "lottie-react";
+import { useLayoutEffect, useState } from "react";
 import { AnimationUploader } from "./components/AnimationUploader";
 import { AnimationList } from "./components/AnimationList";
 import { AnimationPlayer } from "./components/AnimationPlayer";
 import { PlayerControls } from "./components/PlayerControls";
 import { CodePreview } from "./components/CodePreview";
 import { ThemeSwitch } from "./components/ThemeSwitch";
-import type { LottieAnimation } from "./types";
-
-type Theme = "light" | "dark";
+import type { LottieAnimation, Theme } from "./types";
 
 function initialTheme(): Theme {
   if (typeof window === "undefined" || !window.matchMedia) return "light";
@@ -22,7 +19,6 @@ function App() {
   const [loop, setLoop] = useState(true);
   const [speed, setSpeed] = useState(1);
   const [theme, setTheme] = useState<Theme>(initialTheme);
-  const lottieRef = useRef<LottieRefCurrentProps | null>(null);
 
   useLayoutEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -50,16 +46,7 @@ function App() {
   }
 
   function handleTogglePlay() {
-    if (isPlaying) {
-      lottieRef.current?.pause();
-    } else {
-      lottieRef.current?.play();
-    }
-    setIsPlaying(!isPlaying);
-  }
-
-  function handleToggleLoop() {
-    setLoop((prev) => !prev);
+    setIsPlaying((prev) => !prev);
   }
 
   return (
@@ -97,13 +84,13 @@ function App() {
                   animation={selectedAnimation}
                   loop={loop}
                   speed={speed}
-                  lottieRef={lottieRef}
+                  isPlaying={isPlaying}
                 />
                 <PlayerControls
                   isPlaying={isPlaying}
                   onTogglePlay={handleTogglePlay}
                   loop={loop}
-                  onToggleLoop={handleToggleLoop}
+                  onToggleLoop={() => setLoop((prev) => !prev)}
                   speed={speed}
                   onSpeedChange={setSpeed}
                 />

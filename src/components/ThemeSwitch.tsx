@@ -1,4 +1,4 @@
-type Theme = "light" | "dark";
+import type { Theme } from "../types";
 
 type Props = {
   theme: Theme;

@@ -42,26 +42,20 @@ export function AnimationUploader({ variant, onAdd }: Props) {
     }
   }
 
-  function handleDrop(e: DragEvent<HTMLDivElement>) {
-    e.preventDefault();
-    setIsDragOver(false);
-    void handleFile(e.dataTransfer.files[0]);
-  }
-
-  const dropzoneProps = {
-    onDragOver: (e: DragEvent<HTMLDivElement>) => {
-      e.preventDefault();
-      setIsDragOver(true);
-    },
-    onDragLeave: () => setIsDragOver(false),
-    onDrop: handleDrop,
-  };
-
   return (
     <div
       className={variant === "empty" ? "uploader uploader-empty" : "uploader uploader-compact"}
       data-drag-over={isDragOver || undefined}
-      {...dropzoneProps}
+      onDragOver={(e) => {
+        e.preventDefault();
+        setIsDragOver(true);
+      }}
+      onDragLeave={() => setIsDragOver(false)}
+      onDrop={(e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        setIsDragOver(false);
+        void handleFile(e.dataTransfer.files[0]);
+      }}
     >
       <input
         ref={inputRef}

@@ -3,3 +3,5 @@ export type LottieAnimation = {
   name: string;
   data: object;
 };
+
+export type Theme = "light" | "dark";
