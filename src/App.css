@@ -257,6 +257,7 @@ button:focus-visible {
   flex: 1;
   display: flex;
   min-width: 0;
+  min-height: 0;
 }
 
 .pane {
@@ -599,5 +600,8 @@ button:focus-visible {
   .pane + .pane {
     border-left: none;
     border-top: 1px solid var(--border);
+  }
+  .canvas {
+    min-height: 160px;
   }
 }

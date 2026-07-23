@@ -22,6 +22,10 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackE
   }, [speed]);
 
   useEffect(() => {
+    lottieRef.current?.animationItem?.setLoop(loop);
+  }, [loop]);
+
+  useEffect(() => {
     if (isPlaying) {
       if (didFinishRef.current) {
         didFinishRef.current = false;
@@ -44,7 +48,7 @@ export function AnimationPlayer({ animation, loop, speed, isPlaying, onPlaybackE
       <Lottie
         lottieRef={lottieRef}
         animationData={animation.data}
-        loop={loop}
+        loop
         autoplay={false}
         onComplete={handleComplete}
         style={canvasSize}
