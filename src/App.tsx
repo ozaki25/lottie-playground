@@ -4,7 +4,6 @@ import { AnimationList } from "./components/AnimationList";
 import { AnimationPlayer } from "./components/AnimationPlayer";
 import { PlayerControls } from "./components/PlayerControls";
 import { PlayerErrorBoundary } from "./components/PlayerErrorBoundary";
-import { CodePreview } from "./components/CodePreview";
 import { ThemeSwitch } from "./components/ThemeSwitch";
 import type { LottieAnimation, Theme } from "./types";
 
@@ -83,32 +82,25 @@ function App() {
 
         <main className="stage">
           {selectedAnimation ? (
-            <>
-              <section className="pane">
-                <div className="pane-head">再生</div>
-                <PlayerErrorBoundary key={selectedAnimation.id} onError={() => setIsPlaying(false)}>
-                  <AnimationPlayer
-                    animation={selectedAnimation}
-                    loop={loop}
-                    speed={speed}
-                    isPlaying={isPlaying}
-                    onPlaybackEnd={handlePlaybackEnd}
-                  />
-                </PlayerErrorBoundary>
-                <PlayerControls
-                  isPlaying={isPlaying}
-                  onTogglePlay={handleTogglePlay}
+            <section className="pane">
+              <PlayerErrorBoundary key={selectedAnimation.id} onError={() => setIsPlaying(false)}>
+                <AnimationPlayer
+                  animation={selectedAnimation}
                   loop={loop}
-                  onToggleLoop={() => setLoop((prev) => !prev)}
                   speed={speed}
-                  onSpeedChange={setSpeed}
+                  isPlaying={isPlaying}
+                  onPlaybackEnd={handlePlaybackEnd}
                 />
-              </section>
-              <section className="pane">
-                <div className="pane-head">ソース</div>
-                <CodePreview loop={loop} speed={speed} isPlaying={isPlaying} />
-              </section>
-            </>
+              </PlayerErrorBoundary>
+              <PlayerControls
+                isPlaying={isPlaying}
+                onTogglePlay={handleTogglePlay}
+                loop={loop}
+                onToggleLoop={() => setLoop((prev) => !prev)}
+                speed={speed}
+                onSpeedChange={setSpeed}
+              />
+            </section>
           ) : animations.length > 0 ? (
             <section className="pane pane-empty">
               <p className="reselect-message">一覧からアニメーションを選んでください</p>
