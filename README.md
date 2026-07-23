@@ -25,9 +25,11 @@ npm run dev
 ## その他のコマンド
 
 ```bash
-npm run build   # 型チェック + 本番ビルド
-npm run lint     # ESLint
-npm run preview  # ビルド済みの内容をローカルで確認
+npm run build          # 型チェック + 本番ビルド
+npm run lint            # oxlint
+npm run format          # oxfmt（書き込み）
+npm run format:check    # oxfmt（差分チェックのみ）
+npm run preview         # ビルド済みの内容をローカルで確認
 ```
 
 ## 使用ライブラリ
@@ -35,3 +37,5 @@ npm run preview  # ビルド済みの内容をローカルで確認
 - [Vite](https://vitejs.dev/) + React + TypeScript
 - [lottie-react](https://github.com/Gamote/lottie-react)（Lottieアニメーションの再生）
 - [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer)（JSXコードのシンタックスハイライト）
+- [React Compiler](https://react.dev/learn/react-compiler)（`useCallback`/`useMemo` を手書きせずに自動メモ化）
+- [oxlint](https://oxc.rs/docs/guide/usage/linter) / [oxfmt](https://oxc.rs/docs/guide/usage/formatter)（lint・format）

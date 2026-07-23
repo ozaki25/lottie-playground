@@ -62,7 +62,9 @@ function App() {
         </div>
         <div className="app-bar-right">
           <div className="hint">
-            {selectedAnimation ? `${selectedAnimation.name} を選択中` : ".json をドロップ、または選択"}
+            {selectedAnimation
+              ? `${selectedAnimation.name} を選択中`
+              : ".json をドロップ、または選択"}
           </div>
           <ThemeSwitch theme={theme} onChange={setTheme} />
         </div>
@@ -84,10 +86,7 @@ function App() {
             <>
               <section className="pane">
                 <div className="pane-head">再生</div>
-                <PlayerErrorBoundary
-                  key={selectedAnimation.id}
-                  onError={() => setIsPlaying(false)}
-                >
+                <PlayerErrorBoundary key={selectedAnimation.id} onError={() => setIsPlaying(false)}>
                   <AnimationPlayer
                     animation={selectedAnimation}
                     loop={loop}

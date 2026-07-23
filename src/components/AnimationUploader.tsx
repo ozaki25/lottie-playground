@@ -21,7 +21,7 @@ function readAsAnimation(file: File): Promise<LottieAnimation> {
   }
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.addEventListener("load", () => {
       let data: unknown;
       try {
         data = JSON.parse(reader.result as string);
@@ -34,8 +34,10 @@ function readAsAnimation(file: File): Promise<LottieAnimation> {
         return;
       }
       resolve({ id: crypto.randomUUID(), name: file.name, data });
-    };
-    reader.onerror = () => reject(new Error(`${file.name} の読み込みに失敗しました`));
+    });
+    reader.addEventListener("error", () =>
+      reject(new Error(`${file.name} の読み込みに失敗しました`)),
+    );
     reader.readAsText(file);
   });
 }
