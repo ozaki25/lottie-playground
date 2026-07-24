@@ -5,10 +5,11 @@
   --checker-a: #eeefe8;
   --checker-b: #e2e3da;
   --ink: #1a1c17;
-  --ink-muted: #62655a;
-  --ink-faint: #90927f;
+  --ink-muted: #595c52;
+  --ink-faint: #6f7266;
   --border: #c7c9bd;
-  --accent: #b6701a;
+  --accent: #c47c1e;
+  --on-accent: #1a1c17;
   --focus: #7a5a1e;
 }
 
@@ -20,7 +21,7 @@
   --checker-b: #17191c;
   --ink: #eae7dc;
   --ink-muted: #9a9c8f;
-  --ink-faint: #63665c;
+  --ink-faint: #6e7163;
   --border: #2d3033;
   --accent: #e0a23d;
   --focus: #e0a23d;
@@ -87,7 +88,7 @@ button {
 
 .hint {
   font-size: 12px;
-  color: var(--ink-faint);
+  color: var(--ink-muted);
   font-family: ui-monospace, "SF Mono", Consolas, Menlo, monospace;
 }
 
@@ -114,7 +115,7 @@ button {
 
 .theme-switch button[aria-pressed="true"] {
   background: var(--accent);
-  color: var(--surface);
+  color: var(--on-accent);
   font-weight: 700;
 }
 
@@ -220,7 +221,7 @@ button:focus-visible {
 .rail-empty {
   padding: 16px;
   font-size: 12px;
-  color: var(--ink-faint);
+  color: var(--ink-muted);
   line-height: 1.7;
 }
 
@@ -319,7 +320,7 @@ button:focus-visible {
   height: 0;
   border-top: 5px solid transparent;
   border-bottom: 5px solid transparent;
-  border-left: 8px solid var(--ink);
+  border-left: 8px solid var(--on-accent);
   margin-left: 2px;
 }
 
@@ -336,7 +337,7 @@ button:focus-visible {
   top: 0;
   width: 3px;
   height: 10px;
-  background: var(--ink);
+  background: var(--on-accent);
 }
 
 .play-btn .icon-pause::before {
@@ -382,8 +383,8 @@ button:focus-visible {
   top: 0px;
   width: 4px;
   height: 7px;
-  border-right: 1.5px solid var(--surface);
-  border-bottom: 1.5px solid var(--surface);
+  border-right: 1.5px solid var(--on-accent);
+  border-bottom: 1.5px solid var(--on-accent);
   transform: rotate(40deg);
 }
 
@@ -486,7 +487,7 @@ button:focus-visible {
   margin-top: 1px;
   border-radius: 50%;
   background: var(--accent);
-  color: var(--surface);
+  color: var(--on-accent);
   font-size: 10px;
   font-weight: 700;
   line-height: 14px;
